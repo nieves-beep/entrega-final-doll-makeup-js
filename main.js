@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("btnCarrito").addEventListener("click", () => {
         if (carrito.length === 0) {
-            Swal.fire("Tu carrito está vacío 😢");
+            Swal.fire("Tu carrito está vacío :(");
             return;
         }
 
@@ -56,7 +56,6 @@ function mostrarProductos(productos) {
         boton.textContent = "Agregar al carrito";
         boton.classList.add("boton-agregar");
 
-        // ✅ Evento de agregar al carrito
         boton.addEventListener("click", () => {
             carrito.push(producto);
             Swal.fire({
@@ -66,7 +65,7 @@ function mostrarProductos(productos) {
                 showConfirmButton: false,
                 timer: 1500
             });
-            // Actualiza contador
+            
             document.getElementById("contadorCarrito").textContent = `(${carrito.length})`;
         });
 
