@@ -1,3 +1,5 @@
+let carrito = [];
+
 document.addEventListener("DOMContentLoaded", () => {
     Swal.fire({
         title: "¡Bienvenido a Doll Makeup Store! 💖",
@@ -16,8 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error cargando productos:", error));
 });
-
-let carrito = [];
 
 function mostrarProductos(productos) {
     const contenedor = document.getElementById("contenedor-productos");
@@ -45,7 +45,6 @@ function mostrarProductos(productos) {
         boton.addEventListener("click", () => {
             carrito.push(producto);
             actualizarContadorCarrito();
-
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -88,30 +87,36 @@ function iniciarSesion() {
 
 function mostrarCarrito() {
     if (carrito.length === 0) {
-        Swal.fire("Carrito vacío", "No hay productos en el carrito", "info");
+        Swal.fire("Tu carrito está vacío");
         return;
     }
 
-    let html = "";
+    let contenido = "";
     let total = 0;
 
     carrito.forEach((producto, index) => {
-        html += `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
-                <span>${producto.nombre} - $${producto.precio}</span>
-                <button onclick="eliminarDelCarrito(${index})" style="background-color: pink; border: none; padding: 5px; border-radius: 5px;">❌</button>
+        total += producto.precio;
+
+        contenido += `
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <img src="images/${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 10px;">
+                <div>
+                    <strong>${producto.nombre}</strong><br>
+                    $${producto.precio}
+                </div>
+                <button onclick="eliminarDelCarrito(${index})" style="margin-left:auto; background:#ff69b4; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">Eliminar</button>
             </div>
         `;
-        total += parseFloat(producto.precio);
     });
 
-    html += `<hr><p style="text-align: right; font-weight: bold;">Total: $${total.toFixed(2)}</p>`;
+    contenido += `<hr><p><strong>Total:</strong> $${total}</p>`;
 
     Swal.fire({
-        title: "🛍️ Carrito",
-        html: html,
+        title: "🛒 Tu Carrito",
+        html: contenido,
         showCloseButton: true,
-        showConfirmButton: false
+        showConfirmButton: false,
+        width: 500,
     });
 }
 
