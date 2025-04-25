@@ -1,5 +1,3 @@
-let carrito = [];
-
 document.addEventListener("DOMContentLoaded", () => {
     Swal.fire({
         title: "¡Bienvenido a Doll Makeup Store! 💖",
@@ -9,21 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("btnIniciarSesion").addEventListener("click", iniciarSesion);
-
-    document.getElementById("btnCarrito").addEventListener("click", () => {
-        if (carrito.length === 0) {
-            Swal.fire("Tu carrito está vacío :(");
-            return;
-        }
-
-        let lista = carrito.map(p => `${p.nombre} - $${p.precio}`).join("<br>");
-
-        Swal.fire({
-            title: "Productos en tu carrito",
-            html: lista,
-            confirmButtonText: "Cerrar"
-        });
-    });
+    document.getElementById("btnCarrito").addEventListener("click", mostrarCarrito);
 
     fetch("data.json")
         .then(response => response.json())
@@ -32,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error cargando productos:", error));
 });
+
+let carrito = [];
 
 function mostrarProductos(productos) {
     const contenedor = document.getElementById("contenedor-productos");
@@ -58,6 +44,8 @@ function mostrarProductos(productos) {
 
         boton.addEventListener("click", () => {
             carrito.push(producto);
+            actualizarContadorCarrito();
+
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -65,8 +53,6 @@ function mostrarProductos(productos) {
                 showConfirmButton: false,
                 timer: 1500
             });
-            
-            document.getElementById("contadorCarrito").textContent = `(${carrito.length})`;
         });
 
         card.appendChild(img);
@@ -98,4 +84,43 @@ function iniciarSesion() {
             }
         }
     });
+}
+
+function mostrarCarrito() {
+    if (carrito.length === 0) {
+        Swal.fire("Carrito vacío", "No hay productos en el carrito", "info");
+        return;
+    }
+
+    let html = "";
+    let total = 0;
+
+    carrito.forEach((producto, index) => {
+        html += `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
+                <span>${producto.nombre} - $${producto.precio}</span>
+                <button onclick="eliminarDelCarrito(${index})" style="background-color: pink; border: none; padding: 5px; border-radius: 5px;">❌</button>
+            </div>
+        `;
+        total += parseFloat(producto.precio);
+    });
+
+    html += `<hr><p style="text-align: right; font-weight: bold;">Total: $${total.toFixed(2)}</p>`;
+
+    Swal.fire({
+        title: "🛍️ Carrito",
+        html: html,
+        showCloseButton: true,
+        showConfirmButton: false
+    });
+}
+
+function eliminarDelCarrito(index) {
+    carrito.splice(index, 1);
+    actualizarContadorCarrito();
+    mostrarCarrito();
+}
+
+function actualizarContadorCarrito() {
+    document.getElementById("contadorCarrito").textContent = `(${carrito.length})`;
 }
