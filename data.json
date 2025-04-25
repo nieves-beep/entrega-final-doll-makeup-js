@@ -1,0 +1,47 @@
+[
+    {
+    "nombre": "Iluminador Novo",
+    "precio": 7500,
+    "imagen": "iluminador.novo.png"
+    },
+    {
+    "nombre": "Lily Cheek Balm",
+    "precio": 6800,
+    "imagen": "lily-by-red-cheek-balm.png"
+    },
+    {
+    "nombre": "Lip Cream Gege Bear",
+    "precio": 8900,
+    "imagen": "lip.cream.gege.bear.png"
+    },
+    {
+    "nombre": "Mini Paleta Novo",
+    "precio": 8200,
+    "imagen": "mini.paleta.novo.png"
+    },
+    {
+    "nombre": "Paleta Misslara",
+    "precio": 10500,
+    "imagen": "paleta.blooming.9.misslara.png"
+    },
+    {
+    "nombre": "Peripera Mood Glowy Tint",
+    "precio": 9500,
+    "imagen": "peripera-ink-mood-glowy-tint.png"
+    },
+    {
+    "nombre": "Polvo Gege Bear",
+    "precio": 9200,
+    "imagen": "polvo.gege.bear.png"
+    },
+    {
+    "nombre": "Rímel Gege Bear",
+    "precio": 8600,
+    "imagen": "mascara.pestañas.gegebear.png"
+    },
+    {
+    "nombre": "Sombra Líquida Gege Bear",
+    "precio": 7300,
+    "imagen": "sombra.liquida.gegebear.png"
+    }
+]
